@@ -1,0 +1,23 @@
+---
+- name: Challenge Playbook
+  hosts: renamed,!taz
+  connection: ssh
+  gather_facts: no
+  become: true
+  vars:
+          username: "Nima"
+          userid: "{{ 10223 }}"
+
+  tasks:
+
+  - name: Ensure group "funkytown" exists
+    ansible.builtin.group:
+      name: funkytown
+      state: present
+
+  # the command module issues a command on the remote host
+  - name: Add user 1
+    ansible.builtin.user:
+      name: "{{ username }}"
+      group: funkytown
+
